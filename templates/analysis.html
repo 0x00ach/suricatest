@@ -1,0 +1,69 @@
+{% extends "main.html" %}
+{% block content %}
+	{{ super() }}
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="panel-title"><h3>{{analysis.title}} <a href="{{url_for('delete_analysis',analysis_id=analysis.id)}}" class="label label-danger" onclick="javascript: return confirm('delete?');">delete</a></h3></div>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-2">DATE</div>
+					<div class="col-sm-6">{{analysis.date|ctime}}</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2">STATUS</div>
+					<div class="col-sm-6"><span class="label label-{% if analysis.status == 0 %}default">SCHEDULED{% elif analysis.status == 1 %}info">RUNNING{% else %}success">FINISHED{% endif %}</span></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2">PCAP</div>
+					<div class="col-sm-6"><a href="{{url_for('download_pcap',analysis_id=analysis.id)}}" class="label label-primary">DOWNLOAD</a></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2">RESULTS</div>
+					<div class="col-sm-6"><span class="label label-{% if analysis.hit == 0 %}info">NODETECT{% else %}danger">DETECTED{% endif %}</span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% if analysis.ruleset != "" %}
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="panel-title"><h3>RULESET</h3></div>
+			</div>
+			<div class="panel-body">
+				{% for i in analysis.ruleset.splitlines() %}
+					{{i}}<br />
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	{% if hits|count != 0 %}
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="panel-title"><h3>HITS</h3></div>
+			</div>
+			<div class="panel-body">
+				{% for i in hits %}
+					{{i}}<br />
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="panel-title"><h3>RAW OUTPUTS</h3></div>
+			</div>
+			<div class="panel-body">
+				{% for x in results %}
+					<a class="label label-primary" href="{{url_for('view_suricata_output',output_id=x.id)}}">{{x.file_name}}</a>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+# Default config for Suricata
+
+# set to yes to start the server in the init.d script
+RUN=yes
+
+# Configuration file to load
+SURICATEST_CONFIG_FILE=<!>REPLACEFOLDER<!>/suricataconf/suricata.yaml
+SURICATEST_LOG_FILE=<!>REPLACEFOLDER<!>/suricatalogs/suricata-start.log
+SOCKET_NAME=suricatest.socket
+
+# Load Google TCMALLOC if libtcmalloc-minimal0 is installed
+# This _might_ give you very very small performance gain....
+TCMALLOC="YES"
+
+# Pid file
+PIDFILE=/var/run/suricata.pid

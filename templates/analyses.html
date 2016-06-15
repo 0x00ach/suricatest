@@ -1,0 +1,60 @@
+{% extends "main.html" %}
+{% block content %}
+	{{ super() }}
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="panel-title">SEARCH (full-text)</div>
+				</div>
+				<div class="panel-body">
+					<form action="/analyses/" method="POST">
+						<div class="row">
+							<div class="col-sm-2">NEEDLE</div>
+							<div class="col-sm-4"><input type="text" name="needle" /></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<input type="submit" name="OK" value="OK" />
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="panel-title">BROWSE BY RULE</div>
+				</div>
+				<div class="panel-body">
+					<form action="/analyses/" method="POST">
+						<div class="row">
+							<div class="col-sm-2">RULES</div>
+							<div class="col-sm-4"><select name="alerts">{% for x in rules %}<option value="{{x.id}}">{{x.name}}</option>{% endfor %}</select></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<input type="submit" name="OK" value="OK" />
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="panel-title">30 last analyses</div>
+			</div>
+			<div class="panel-body">
+				<ul>
+					{% for x in analyses %}
+					<li>{{printanalysis(x)}}</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock %}

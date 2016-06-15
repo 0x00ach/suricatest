@@ -1,0 +1,46 @@
+{% extends "main.html" %}
+{% block content %}
+	{{ super() }}
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="panel-title">New analysis</div>
+			</div>
+			<div class="panel-body">
+				<form action="/new/" method="POST" enctype="multipart/form-data">
+					<div class="row">
+						<div class="col-sm-2">TITLE</div>
+						<div class="col-sm-6"><input type="text" name="title" /></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">PCAP FILE</div>
+						<div class="col-sm-6"><input type="file" name="pcap" /></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">RULESET</div>
+						<div class="col-sm-6"><textarea name="ruleset" cols="110" rows="10"></textarea></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-8">
+							<input type="submit" name="OK" value="OK" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="panel-title">30 last analyses</div>
+			</div>
+			<div class="panel-body">
+				<ul>
+					{% for x in analyses %}
+						<li>{{printanalysis(x)}}</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock %}

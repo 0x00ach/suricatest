@@ -1,0 +1,21 @@
+{% macro printanalysis(x) %}<a href="{{ url_for('view_analysis',analysis_id=x.id)}}"><span style="font-family:Menlo,Monaco,Consolas,'Courier New',monospace'">{{x.title}}</span></a>&nbsp;<span class="label label-{% if x.status == 0 %}default">Scheduled{% elif x.status == 1 %}info">Running{% else %}success">Finished{% endif %}</span>{% if x.hit == 1 %}<span class="label label-danger">HIT</span>{% endif %}{% endmacro %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{{url_for('static',filename='boot.css')}}">
+{% endblock %}
+
+{% block title %}<title>SURICATEST</title>{% endblock %}
+
+{% block navbar %}
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+				<li><a href="/">Home</a></li>
+				<li><a href="/analyses/">Browse analyses</a></li>
+			</ul>
+	</nav>			
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+{% endblock %}
